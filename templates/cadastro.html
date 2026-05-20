@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
+
+    <title>Cadastro</title>
+</head>
+<body>
+    
+
+
+<div class="container">
+
+    <div class="left">
+
+        <h1 class="logo">TASKCRAFT</h1>    
+            
+            <h2 class="frase">Organize sua rotina, acompanhe suas<br>
+                 tarefas e transforme pequenos passos em<br>
+                  grandes conquistas todos os dias!</h2>
+
+                  <div class="erro-container">
+                        {% if erro %}
+                            <p class="erro">{{ erro }}</p>
+                        {% endif %}
+                    </div>
+                  
+
+                <form class="forms" action="" method="post">
+
+                    
+                    <label for="nome">Nome:</label>
+                    <input class="caixaform" type="text" id="nome" name="nomeForm" required><br>
+
+                    <label for="email">Email:</label>
+                    <input class="caixaform"type="email" id="email" name="emailForm" required><br>
+
+                    <label for="senha">Senha:</label>
+                    <input class="caixaform"type="password" id="senha" name="senhaForm" required><br>
+                    
+                    <input class="buttonForm" type="submit" value="Cadastrar">
+                    <a href="{{ url_for('login') }}" class="login-link">Já tem uma conta? Faça login aqui.</a>                      
+                </form>
+        </div>
+
+        <div class="right">
+            <img class="img" src="{{ url_for('static', filename='girl.png')}}" alt="">
+        </div>
+
+    </div>
+</body>
+</html>

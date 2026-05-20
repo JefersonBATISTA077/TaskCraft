@@ -1,0 +1,133 @@
+
+.nabla-uniquifier {
+    font-family: "Nabla", system-ui;
+    font-size: 60px;
+
+    color: black;
+
+    font-palette: dark;
+}
+
+html,body{
+    background-color: rgb(203, 216, 255);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.frase{
+    margin-top: 0px;
+    font-size: 16px;
+    text-align: center;
+    color: rgb(171, 171, 171);
+    font-family: 'Arial', sans-serif;
+}
+
+.container{
+    display: flex;
+    height: 100vh
+}
+
+.left{
+    width: 40%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+    
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.right{
+    width: 60%;
+    background-color: rgb(203, 216, 255);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 70vh;
+}
+.img{
+    margin-top: 325px;
+    width: 825px;
+    height: 640px;
+}
+
+.logo{
+    font-family: "Nabla", system-ui;
+    font-size: 70px;
+
+    filter: grayscale(100%) brightness(0%);
+}
+
+.forms{
+    width: 350px;
+    height: 360px;
+    padding: 45px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 5px;
+
+    border-radius: 12px;
+
+    margin-left: 0px;
+
+}
+
+.buttonForm{
+    background-color: royalblue;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 150px;
+    height: 45px;
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+    text-align: center;
+    align-items: left;
+    font-size: medium;
+    margin-left: 100px;
+}
+.caixaform{
+    height: 25px;
+    border-radius: 5px;
+    background-color: rgb(207, 206, 206);
+}
+
+label{
+    font-family: 'Arial', sans-serif;
+    color: rgb(84, 84, 84);
+    font-size: 14px;
+}
+.login-link{
+    text-decoration: none;
+    color: rgb(171, 171, 171);
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-link:visited{
+    color: rgb(171, 171, 171)
+}
+
+.login-link:hover{
+    color: rgb(84, 84, 84);
+}
+
+.erro{
+    color: red;
+    font-size: 18px;
+    margin: 0px;
+    font-family: 'Arial', sans-serif;
+}
+
+.erro-container{
+    height: 10px;
+}
