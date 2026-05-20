@@ -68,7 +68,7 @@ def login():
             else:
                 return render_template('login.html', erro="Senha incorreta.")
         else:
-            return "Email não encontrado."
+            return render_template('login.html', erro="Email não encontrado.")
     return render_template('login.html')
 
 # Rota para a página de dashboard (após login bem-sucedido)
