@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
@@ -44,12 +44,12 @@
                     <input class="caixaform"type="password" id="senha" name="senhaForm" required><br>
                     
                     <input class="buttonForm" type="submit" value="Cadastrar">
-                    <a href="{{ url_for('login') }}" class="login-link">Já tem uma conta? Faça login aqui.</a>                      
+                    <a href="{{ url_for('login') }}" class="atalho">Já tem uma conta? Faça login aqui.</a>                      
                 </form>
         </div>
 
         <div class="right">
-            <img class="img" src="{{ url_for('static', filename='girl.png')}}" alt="">
+            <img class="img" src="{{ url_for('static', filename='imgLogin.png')}}" alt="">
         </div>
 
     </div>

@@ -28,6 +28,7 @@ html,body{
     height: 100vh
 }
 
+
 .left{
     width: 40%;
     height: 100%;
@@ -52,17 +53,19 @@ html,body{
     height: 70vh;
 }
 .img{
-    margin-top: 325px;
-    width: 825px;
-    height: 640px;
+    margin-top: 290px;
+    width: 880px;
+    height: 680px;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
 }
 
 .logo{
     font-family: "Nabla", system-ui;
     font-size: 70px;
-
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     filter: grayscale(100%) brightness(0%);
 }
+
 
 .forms{
     width: 350px;
@@ -105,7 +108,7 @@ label{
     color: rgb(84, 84, 84);
     font-size: 14px;
 }
-.login-link{
+.atalho{
     text-decoration: none;
     color: rgb(171, 171, 171);
     margin-top: 10px;
@@ -113,11 +116,11 @@ label{
     font-family: 'Arial', sans-serif;
 }
 
-.login-link:visited{
+.atalho:visited{
     color: rgb(171, 171, 171)
 }
 
-.login-link:hover{
+.atalho:hover{
     color: rgb(84, 84, 84);
 }
 

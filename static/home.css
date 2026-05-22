@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Padauk', sans-serif;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.nabla-uniquifier {
+    font-family: "Nabla", system-ui;
+    font-size: 60px;
+
+    color: black;
+
+    font-palette: dark;
+}
+
+header {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 40px;
+    
+}
+
+.logo{
+    font-family: "Nabla", system-ui;
+    font-size: 35px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    filter: grayscale(100%) brightness(0%);
+    margin-top: 5px;
+    margin-right: auto;
+    margin-left: -20px;
+}
+
+nav{
+    display: flex;
+    gap: 65px;
+
+    margin-right: 40px;
+}
+
+nav a{
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover{
+    color: #000000;
+}
+
+.img_user{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-top: 2px;
+    filter: grayscale(30%) brightness(70%);
+    cursor: pointer;
+}
+
+.home{
+    width: 100%;
+    min-height: 90vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 70px;
+
+    overflow: hidden;
+}
+
+.texto{
+    width: 800px;
+
+    animation: surgirEsquerda 1.2s ease forwards;
+    opacity: 0;
+}
+
+.texto h2{
+    font-family: "Anton", sans-serif;
+    font-size: 55px;
+    line-height: 1.1;
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+button{
+    margin-top: 25px;
+
+    width: 180px;
+    height: 60px;
+
+    border: none;
+    border-radius: 15px;
+
+    background-color: #b8b8b8;
+    color: white;
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.3));
+
+    font-size: 30px;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+button a{
+    text-decoration: none;
+    color: white;
+}
+
+button:hover{
+    background: #9e9e9e;
+}
+
+.imagem{
+    width: 55%;
+
+    display: flex;
+    justify-content: center;
+    animation: surgirDireita 1.4s ease forwards;
+    animation-delay: 0.2s;
+
+    opacity: 0;
+}
+
+.imagem img{
+    width: 850px;
+    max-height: 100%;
+    margin-right: -100px;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
+
+    -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 65%,
+    transparent 100%
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        black 85%,
+        transparent 100%
+    );
+}
+
+.fundo-azul{
+    width: 100%;
+    height: 250px;
+
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #f2f3ff 15%,
+        #e8ebff 40%,
+        #dbe0ff 70%,
+        #ccd5ff 100%
+    );
+}
+
+@keyframes surgirEsquerda {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes surgirDireita {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
