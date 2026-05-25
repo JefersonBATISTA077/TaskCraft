@@ -1,3 +1,7 @@
+input, button {
+    border: none;
+    outline: none;
+}
 
 .nabla-uniquifier {
     font-family: "Nabla", system-ui;
@@ -53,10 +57,22 @@ html,body{
     height: 70vh;
 }
 .img{
-    margin-top: 290px;
-    width: 880px;
-    height: 680px;
+    margin-top: 260px;
+    width: 820px;
+    height: 640px;
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.3));
+
+    -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 65%,
+    transparent 100%
+    );
+
+    mask-image: linear-gradient(
+        to bottom,
+        black 85%,
+        transparent 100%
+    );
 }
 
 .logo{
@@ -98,7 +114,8 @@ html,body{
     margin-left: 100px;
 }
 .caixaform{
-    height: 25px;
+    height: 35px;
+    font-size: 14px;
     border-radius: 5px;
     background-color: rgb(207, 206, 206);
 }

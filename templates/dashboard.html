@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
+
     <title>TaskCraft</title>
 </head>
 <body>
+
+    <header>
+        <h1 class="logo">TASKCRAFT</h1>
+
+        <nav>
+            <a class="atalho" href="#">Inicio</a>
+            <a class="atalho" href="#">Rotina</a>
+            <a class="atalho" href="#">Compromissos</a>
+            <a class="atalho" href="#">Contato</a>
+        </nav>
+
+        <img src="{{ url_for('static', filename='user.jpg') }}" alt="imagem do usuário" class="img_user">
+    </header>
+
+    <section class="home">
+
+        <div class="texto">
+            <h2>
+                SUA PRODUTIVIDADE <br>
+                COMEÇA AGORA!
+            </h2>
+
+            <button><a href="">Vamos lá</a></button>
+        </div>
+
+        <div class="imagem">
+            <img src="{{ url_for('static', filename='imgMain.png') }}" alt="imagem principal">
+        </div>
+
+    </section>
+
+    <div class="fundo-azul"></div>
     
 </body>
 </html>

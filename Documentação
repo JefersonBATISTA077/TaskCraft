@@ -1,477 +1,269 @@
-# Documentação — Sistema de Cadastro e Login TaskCraft
+# Documentação do Projeto TaskCraft
 
 ## Visão Geral
 
-O projeto TaskCraft é uma aplicação web desenvolvida com:
+O projeto TaskCraft é uma aplicação web desenvolvida com Python utilizando o framework Flask. O sistema possui autenticação de usuários, cadastro, login e dashboard.
 
-* Python
-* Flask
-* SQLite3
-* HTML/CSS
-
-O sistema possui:
-
-* cadastro de usuários
-* login
-* autenticação com sessão
-* hash de senha
-* dashboard protegido
+A aplicação foi organizada utilizando Blueprint para separar as rotas em módulos independentes, deixando o código mais limpo, organizado e escalável.
 
 ---
 
 # Tecnologias Utilizadas
 
-## Backend
-
 * Python
 * Flask
 * SQLite3
-* Werkzeug Security
-
----
-
-## Frontend
-
 * HTML5
 * CSS3
-* Jinja2 Templates
+* Jinja2
+* Werkzeug Security
 
 ---
 
 # Estrutura do Projeto
 
-```plaintext id="p7t2vn"
-Projeto/
+```bash
+Site/
 │
-├── app.py
+├── main.py
+├── database.py
 │
-├── banco.db
+├── routes/
+│   ├── __init__.py
+│   ├── home.py
+│   ├── login.py
+│   ├── cadastro.py
+│   └── dashboard.py
 │
 ├── templates/
-│   ├── cadastro.html
+│   ├── index.html
 │   ├── login.html
-│   ├── dashboard.html
-│   └── index.html
+│   ├── cadastro.html
+│   └── dashboard.html
 │
 ├── static/
 │   ├── style.css
-│   └── girl.png
+│   └── imagens/
+│
+└── flaskvenv/
 ```
 
 ---
 
 # Funcionamento do Sistema
 
-## Fluxo Geral
+## Página Inicial
 
-```plaintext id="w8r1zo"
-Usuário acessa cadastro
-↓
-Cria conta
-↓
-Senha é criptografada
-↓
-Dados salvos no SQLite
-↓
-Sessão criada
-↓
-Usuário entra no dashboard
+A página inicial é responsável por apresentar o sistema ao usuário.
+
+Rota:
+
+```python
+/
+```
+
+Arquivo responsável:
+
+```bash
+routes/home.py
 ```
 
 ---
 
-# Configuração Principal do Flask
+## Cadastro de Usuário
 
-```python id="x2k5ba"
-app = Flask(__name__)
-app.secret_key = 'taskcraft_secret_key'
+A funcionalidade de cadastro permite criar novos usuários no banco de dados.
+
+Rota:
+
+```python
+/cadastro
 ```
 
-## Explicação
+Arquivo responsável:
 
-### Flask
+```bash
+routes/cadastro.py
+```
 
-Inicializa a aplicação web.
+Fluxo:
+
+1. Usuário preenche formulário
+2. Senha é criptografada
+3. Dados são armazenados no SQLite
+4. Usuário é redirecionado para login
 
 ---
 
-### Secret Key
+## Login
 
-Utilizada para:
+O login autentica o usuário utilizando email e senha.
 
-* sessões
-* cookies
-* autenticação
+Rota:
 
-Sem ela o Flask não consegue armazenar sessões.
+```python
+/login
+```
+
+Arquivo responsável:
+
+```bash
+routes/login.py
+```
+
+Fluxo:
+
+1. Usuário envia email e senha
+2. Sistema verifica o banco
+3. Senha é validada com check_password_hash
+4. Sessão é criada
+5. Usuário é enviado ao dashboard
 
 ---
 
-# Conexão com Banco de Dados
+## Dashboard
 
-```python id="q4m7ld"
-def conectar():
-    conn = sqlite3.connect('banco.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+Área acessível apenas para usuários autenticados.
+
+Rota:
+
+```python
+/dashboard
 ```
 
-## Explicação
+Arquivo responsável:
 
-### sqlite3.connect
+```bash
+routes/dashboard.py
+```
 
-Conecta ao banco SQLite.
+A sessão do usuário é validada antes de liberar acesso.
 
 ---
 
-### row_factory
+# Uso de Blueprint
 
-Permite acessar colunas pelo nome:
+O Flask Blueprint foi utilizado para modularizar as rotas.
 
-```python id="g8v2kp"
-user['senha']
+Exemplo:
+
+```python
+from flask import Blueprint
+
+login_bp = Blueprint("login", __name__)
 ```
 
-em vez de:
+Registro no arquivo principal:
 
-```python id="s6j1nr"
-user[2]
-```
-
----
-
-# Criação da Tabela
-
-```python id="v3z9cm"
-CREATE TABLE IF NOT EXISTS usuarios
-```
-
-## Estrutura da Tabela
-
-| Campo | Tipo        | Função                   |
-| ----- | ----------- | ------------------------ |
-| id    | INTEGER     | Identificador do usuário |
-| nome  | TEXT        | Nome do usuário          |
-| email | TEXT UNIQUE | Email único              |
-| senha | TEXT        | Senha criptografada      |
-
----
-
-# Sistema de Cadastro
-
-## Rota
-
-```python id="o5t7dj"
-@app.route('/cadastro', methods=['GET', 'POST'])
-```
-
----
-
-## Funcionamento
-
-### GET
-
-Renderiza:
-
-```plaintext id="b1u8ef"
-cadastro.html
+```python
+app.register_blueprint(login_bp)
 ```
 
 ---
 
-### POST
+# Sistema de Sessão
 
-Recebe:
+O sistema utiliza session do Flask para manter usuários autenticados.
 
-* nome
-* email
-* senha
+Exemplo:
 
----
-
-# Criptografia de Senha
-
-```python id="t6y2ws"
-senha_hash = generate_password_hash(senha)
+```python
+session['usuario'] = user['nome']
 ```
 
-## Objetivo
+A secret_key é necessária:
 
-Nunca salvar senhas reais no banco.
-
----
-
-## Exemplo
-
-### Senha real
-
-```plaintext id="q1v5zk"
-123456
+```python
+app.secret_key = "taskcraft_secret_key"
 ```
 
 ---
 
-### Hash gerado
+# Banco de Dados
 
-```plaintext id="e4k8rm"
-scrypt:32768:8:1$...
+O banco utilizado é SQLite3.
+
+Arquivo:
+
+```bash
+database.py
+```
+
+Tabela principal:
+
+```sql
+CREATE TABLE usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL,
+    senha TEXT NOT NULL
+)
 ```
 
 ---
 
-# Inserção no Banco
+# Segurança
 
-```python id="z8n3cq"
-INSERT INTO usuarios
+As senhas não são armazenadas em texto puro.
+
+Foi utilizado:
+
+```python
+generate_password_hash()
 ```
 
-## Segurança
+E para validação:
 
-Uso de query parametrizada:
-
-```python id="v7b2xm"
-VALUES (?, ?, ?)
-```
-
-Protege contra:
-
-* SQL Injection
-
----
-
-# Tratamento de Erro
-
-```python id="x9m1jw"
-except sqlite3.IntegrityError:
-```
-
-## Objetivo
-
-Evitar cadastro de emails duplicados.
-
----
-
-# Sessão do Usuário
-
-```python id="j3q7ns"
-session['usuario'] = request.form['nomeForm']
-```
-
-## Função
-
-Mantém usuário autenticado após login/cadastro.
-
----
-
-# Redirecionamento
-
-```python id="v4t9la"
-return redirect(url_for('dashboard'))
-```
-
-## Objetivo
-
-Enviar usuário para dashboard após cadastro/login.
-
----
-
-# Sistema de Login
-
-## Rota
-
-```python id="o2y6kr"
-@app.route('/login', methods=['GET', 'POST'])
+```python
+check_password_hash()
 ```
 
 ---
 
-# Funcionamento
+# Como Executar o Projeto
 
-## Busca do Usuário
+## 1. Ativar ambiente virtual
 
-```python id="h5m8xp"
-SELECT * FROM usuarios WHERE email = ?
+### PowerShell
+
+```powershell
+flaskvenv\Scripts\Activate.ps1
 ```
 
 ---
 
-# Verificação de Senha
+## 2. Instalar dependências
 
-```python id="m7z2cb"
-check_password_hash(user['senha'], request.form['senhaForm'])
-```
-
-## Objetivo
-
-Comparar:
-
-* senha digitada
-* hash salvo no banco
-
----
-
-# Dashboard
-
-## Rota
-
-```python id="a8v4ty"
-@app.route('/dashboard')
+```bash
+pip install flask
 ```
 
 ---
 
-# Proteção de Rota
+## 3. Executar projeto
 
-```python id="m2x9wu"
-if 'usuario' in session:
+```bash
+python main.py
 ```
-
-## Objetivo
-
-Permitir acesso apenas para usuários logados.
-
----
-
-# Fluxo de Segurança
-
-```plaintext id="d5k7je"
-Usuário logado?
-↓
-Sim → dashboard
-Não → login
-```
-
----
-
-# Templates HTML
-
-## cadastro.html
-
-Responsável por:
-
-* formulário de cadastro
-* exibição de erros
-* link para login
-
----
-
-## login.html
-
-Responsável por:
-
-* autenticação
-* mensagens de erro
-* link para cadastro
-
----
-
-## dashboard.html
-
-Área privada do usuário autenticado.
-
----
-
-# CSS
-
-## Objetivo
-
-Responsável por:
-
-* layout
-* estilização
-* responsividade
-* mensagens visuais
-
----
-
-# Recursos Implementados
-
-## Autenticação
-
-* cadastro
-* login
-* sessão
-
----
-
-## Segurança
-
-* hash de senha
-* SQL parametrizado
-* UNIQUE email
-
----
-
-## Banco de Dados
-
-* SQLite3
-* persistência de usuários
-
----
-
-# Conceitos Aprendidos no Projeto
-
-* rotas Flask
-* request HTTP
-* GET e POST
-* sessões
-* autenticação
-* hash de senha
-* SQLite
-* SQL
-* templates Jinja2
-* tratamento de exceções
-* renderização HTML
-* redirect
-* url_for
 
 ---
 
 # Melhorias Futuras
 
-## Logout
-
-```python id="y9c3lx"
-session.pop('usuario')
-```
-
----
-
-## CRUD de tarefas
-
-* criar tarefas
-* editar tarefas
-* deletar tarefas
-* concluir tarefas
+* Recuperação de senha
+* Logout
+* Perfil do usuário
+* Sistema de tarefas
+* Calendário
+* API REST
+* Responsividade mobile
+* Banco PostgreSQL
+* Deploy online
 
 ---
 
-## Google Login
+# Objetivo do Projeto
 
-Implementar OAuth2.
+O objetivo do TaskCraft é auxiliar usuários na organização de rotinas, tarefas e compromissos por meio de uma interface moderna e intuitiva.
 
----
-
-## Flash Messages
-
-Mensagens visuais mais profissionais.
-
----
-
-## Flask-Login
-
-Gerenciamento avançado de autenticação.
-
----
-
-# Conclusão
-
-O TaskCraft já possui uma base sólida de aplicação web real, incluindo:
-
-* autenticação segura
-* persistência em banco
-* proteção de rotas
-* sessões
-* estrutura Flask funcional
-
-O projeto demonstra fundamentos importantes de desenvolvimento backend e programação web com Python Flask.
+Além disso, o projeto também serve como aprendizado prático de desenvolvimento web utilizando Flask.
